@@ -1,18 +1,12 @@
-export default function Header() {
+export default function Header({ children }) {
   return (
     <header className="header" role="banner">
-      <div className="container center">
-        <OvarlayCart />
-
-        <HeaderContent />
-
-        <HeaderProfileAndBuy />
-      </div>
+      <div className="container center">{children}</div>
     </header>
   );
 }
 
-function OvarlayCart() {
+export function OvarlayCart() {
   return (
     <div className="ovarlay-cart">
       <h4>Cart</h4>
@@ -38,16 +32,15 @@ function OvarlayCart() {
   );
 }
 
-function HeaderContent() {
-  return (
-    <div className="header-content center">
-      <Logo />
-      <MainNavList />
-    </div>
-  );
+export function HeaderContent({ children }) {
+  return <div className="header-content center">{children}</div>;
 }
 
-function Logo() {
+export function Logo({ setIsSideBarOpen }) {
+
+  function handleOpenSideBar() {
+    setIsSideBarOpen(is => !is)
+  }
   return (
     <div className="header-logo">
       <div>
@@ -55,6 +48,7 @@ function Logo() {
           className="icon-menu"
           viewBox="0 0 16 15"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={handleOpenSideBar}
         >
           <path
             d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
@@ -70,14 +64,20 @@ function Logo() {
   );
 }
 
-function MainNavList() {
+export function MainNavList({ isSideBarOpen, setIsSideBarOpen }) {
+
+  function handleCloseSideBar () {
+    setIsSideBarOpen(is => !is)
+  }
+
   return (
-    <ul className="main-nav-list center">
+    <ul className={`main-nav-list center ${isSideBarOpen ? "open" : ""}`}>
       <li>
         <svg
           className="cross-icon"
           viewBox="0 0 14 15"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={handleCloseSideBar}
         >
           <path
             d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
@@ -115,7 +115,7 @@ function MainNavList() {
   );
 }
 
-function HeaderProfileAndBuy() {
+export function HeaderProfileAndBuy() {
   return (
     <div className="header-logo-box center">
       <AddCart />

@@ -18,6 +18,12 @@ import { OvarlayOperationTabBox } from "./MainOvarlay";
 import { SliderImage } from "./MainOvarlay";
 import { SliderControler } from "./MainOvarlay";
 
+import { OvarlayCart } from "./Header";
+import { HeaderContent } from "./Header";
+import { HeaderProfileAndBuy } from "./Header";
+import { Logo } from "./Header";
+import { MainNavList } from "./Header";
+
 const initialProductImages = [
   {
     id: 1,
@@ -43,11 +49,26 @@ const initialProductImages = [
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(1);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
+
   return (
     <>
-      <Header />
+      {/* Header start */}
+      <Header>
 
-      {/* Main */}
+        <OvarlayCart />
+
+        <HeaderContent>
+          <Logo setIsSideBarOpen={setIsSideBarOpen} />
+          <MainNavList isSideBarOpen={isSideBarOpen} setIsSideBarOpen={setIsSideBarOpen} />
+        </HeaderContent>
+
+        <HeaderProfileAndBuy />
+
+      </Header>
+      {/* end Header */}
+
+      {/* Main start */}
       <Main>
         <ProductsImages>
           <ShowBigCurrentBox
@@ -72,8 +93,8 @@ export default function App() {
       </Main>
       {/* end Main */}
 
-      {/*  MainOvarlay  */}
-      <MainOvarlay>
+      {/*  MainOvarlay start */}
+      <MainOvarlay isSideBarOpen={isSideBarOpen}>
         <ActiveSlide>
           <SliderImage
             selectedImage={selectedImage}

@@ -1,10 +1,10 @@
-export default function MainOvarlay({ children }) {
+export default function MainOvarlay({ children, isSideBarOpen }) {
   return (
     <>
       <div className="main-ovarlay center">
         <div className="ovarlay-hero-img-box">{children}</div>
       </div>
-      <div className="bg"></div>
+      <div className={`bg ${isSideBarOpen ? "bg-color" : ""}`}></div>
     </>
   );
 }
