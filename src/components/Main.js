@@ -52,9 +52,11 @@ export function BoxesTabs({
   initialProductImages,
   selectedImage,
   setSelectedImage,
+  setIsCartOpen
 }) {
   function handleChangeImage(id) {
     setSelectedImage(id);
+    setIsCartOpen(false)
   }
 
   return (
@@ -121,13 +123,19 @@ export function ProductPriceSelectionWithAddToCart({ children }) {
   return <div className="btn-list grid">{children}</div>;
 }
 
-export function ProNumSelection({ numberOfProducts, setNumberOfProducts }) {
+export function ProNumSelection({
+  numberOfProducts,
+  setNumberOfProducts,
+  setIsCartOpen,
+}) {
   function handlePlusNum() {
     setNumberOfProducts((num) => num + 1);
+    setIsCartOpen(false);
   }
 
   function handleMinus() {
     setNumberOfProducts((num) => (numberOfProducts > 1 ? num - 1 : num));
+    setIsCartOpen(false);
   }
 
   return (
@@ -147,13 +155,17 @@ export function AddToCartBtn({
   numberOfProducts,
   setNumberOfProducts,
   setShoppingCartProducts,
+  setNumberOfSelectedProduct,
+  numberOfSelectedProduct,
+  setIsCartOpen,
 }) {
   function handleAddToCart() {
     const newProduct = {
       id: crypto.randomUUID(),
       src: "images/image-product-1-thumbnail.jpg",
       name: "Fall Limited Edition Sneakers",
-      num: numberOfProducts,
+      num: numberOfSelectedProduct,
+      price: "125.00",
     };
 
     setShoppingCartProducts((items) =>
@@ -161,8 +173,9 @@ export function AddToCartBtn({
         ? items
         : [...items, newProduct]
     );
-
-    setNumberOfProducts(1);
+    setIsCartOpen(false);
+    setNumberOfSelectedProduct(numberOfProducts);
+    // setNumberOfProducts(1);
   }
 
   return (

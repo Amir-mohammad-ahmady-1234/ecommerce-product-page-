@@ -23,6 +23,7 @@ import { HeaderContent } from "./Header";
 import { HeaderProfileAndBuy } from "./Header";
 import { Logo } from "./Header";
 import { MainNavList } from "./Header";
+import { AddCart } from "./Header";
 
 const initialProductImages = [
   {
@@ -49,24 +50,40 @@ const initialProductImages = [
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(1);
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [numberOfProducts, setNumberOfProducts] = useState(1);
-  const [shoppingCartProducts, setShoppingCartProducts] = useState([])
+  const [numberOfSelectedProduct, setNumberOfSelectedProduct] = useState(1);
+  const [shoppingCartProducts, setShoppingCartProducts] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
     <>
       {/* Header start */}
       <Header>
-
-        <OvarlayCart />
+        <OvarlayCart
+          isCartOpen={isCartOpen}
+          setIsCartOpen={setIsCartOpen}
+          shoppingCartProducts={shoppingCartProducts}
+          setShoppingCartProducts={setShoppingCartProducts}
+          numberOfSelectedProduct={numberOfSelectedProduct}
+        />
 
         <HeaderContent>
           <Logo setIsSideBarOpen={setIsSideBarOpen} />
-          <MainNavList isSideBarOpen={isSideBarOpen} setIsSideBarOpen={setIsSideBarOpen} />
+          <MainNavList
+            isSideBarOpen={isSideBarOpen}
+            setIsSideBarOpen={setIsSideBarOpen}
+          />
         </HeaderContent>
 
-        <HeaderProfileAndBuy />
-
+        <HeaderProfileAndBuy>
+          <AddCart
+            numberOfProducts={numberOfProducts}
+            shoppingCartProducts={shoppingCartProducts}
+            setIsCartOpen={setIsCartOpen}
+            numberOfSelectedProduct={numberOfSelectedProduct}
+          />
+        </HeaderProfileAndBuy>
       </Header>
       {/* end Header */}
 
@@ -81,6 +98,7 @@ export default function App() {
             initialProductImages={initialProductImages}
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
+            setIsCartOpen={setIsCartOpen}
           />
         </ProductsImages>
 
@@ -88,8 +106,19 @@ export default function App() {
           <ProductPriceWithOfer />
 
           <ProductPriceSelectionWithAddToCart>
-            <ProNumSelection numberOfProducts={numberOfProducts} setNumberOfProducts={setNumberOfProducts} />
-            <AddToCartBtn numberOfProducts={numberOfProducts} setNumberOfProducts={setNumberOfProducts} setShoppingCartProducts={setShoppingCartProducts} />
+            <ProNumSelection
+              numberOfProducts={numberOfProducts}
+              setNumberOfProducts={setNumberOfProducts}
+              setIsCartOpen={setIsCartOpen}
+            />
+            <AddToCartBtn
+              numberOfProducts={numberOfProducts}
+              setNumberOfProducts={setNumberOfProducts}
+              setShoppingCartProducts={setShoppingCartProducts}
+              setNumberOfSelectedProduct={setNumberOfSelectedProduct}
+              numberOfSelectedProduct={numberOfSelectedProduct}
+              setIsCartOpen={setIsCartOpen}
+            />
           </ProductPriceSelectionWithAddToCart>
         </ProductsTextes>
       </Main>

@@ -6,29 +6,80 @@ export default function Header({ children }) {
   );
 }
 
-export function OvarlayCart() {
+export function OvarlayCart({
+  isCartOpen,
+  shoppingCartProducts,
+  numberOfSelectedProduct,
+  setIsCartOpen,
+  setShoppingCartProducts,
+}) {
   return (
-    <div className="ovarlay-cart">
+    <div className={`ovarlay-cart ${isCartOpen && "d-block height"}`}>
       <h4>Cart</h4>
       <div className="cart-content-box">
-        <div className="cart-content-empty show">Your cart is empty</div>
-        <div className="cart-content-full">
-          <div className="cart-info center">
-            <img src="images/image-product-1-thumbnail.jpg" alt="shoe" />
-            <div className="price-info">
-              Fall Limited Edition Sneakers $125.00 ×{" "}
-              <span id="quantity">2</span> <span id="total">$250</span>
-            </div>
-            <img
-              src="images/icon-delete.svg"
-              alt="icon-delete"
-              className="delete-icon"
-            />
-          </div>
-          <button className="btn">Checkout</button>
+        <div
+          className={`cart-content-empty ${
+            !shoppingCartProducts.length && "show"
+          }`}
+        >
+          Your cart is empty
+        </div>
+        <div
+          className={`cart-content-full ${
+            shoppingCartProducts.length && "show"
+          }`}
+        >
+          {shoppingCartProducts.map((item) => {
+            return (
+              <ShoppingProductCart
+                item={item}
+                numberOfSelectedProduct={numberOfSelectedProduct}
+                setIsCartOpen={setIsCartOpen}
+                setShoppingCartProducts={setShoppingCartProducts}
+                key={item.id}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
+  );
+}
+
+function ShoppingProductCart({
+  item,
+  numberOfSelectedProduct,
+  setIsCartOpen,
+  setShoppingCartProducts,
+}) {
+  function handleCloseBasket() {
+    setIsCartOpen(false);
+  }
+
+  function handleDeleteProductFromBasket(currentProductId) {
+    setShoppingCartProducts(items => items.filter(item => item.id !== currentProductId && item))
+  }
+
+  return (
+    <>
+      <div className="cart-info center">
+        <img src="images/image-product-1-thumbnail.jpg" alt="shoe" />
+        <div className="price-info">
+          {item.name} ${item.price} ×{" "}
+          <span id="quantity">{numberOfSelectedProduct}</span>{" "}
+          <span id="total">${item.price * numberOfSelectedProduct}</span>
+        </div>
+        <img
+          src="images/icon-delete.svg"
+          alt="icon-delete"
+          className="delete-icon"
+          onClick={() => handleDeleteProductFromBasket(item.id)}
+        />
+      </div>
+      <button className="btn" onClick={handleCloseBasket}>
+        Checkout
+      </button>
+    </>
   );
 }
 
@@ -37,9 +88,8 @@ export function HeaderContent({ children }) {
 }
 
 export function Logo({ setIsSideBarOpen }) {
-
   function handleOpenSideBar() {
-    setIsSideBarOpen(is => !is)
+    setIsSideBarOpen((is) => !is);
   }
   return (
     <div className="header-logo">
@@ -65,9 +115,8 @@ export function Logo({ setIsSideBarOpen }) {
 }
 
 export function MainNavList({ isSideBarOpen, setIsSideBarOpen }) {
-
-  function handleCloseSideBar () {
-    setIsSideBarOpen(is => !is)
+  function handleCloseSideBar() {
+    setIsSideBarOpen((is) => !is);
   }
 
   return (
@@ -115,19 +164,32 @@ export function MainNavList({ isSideBarOpen, setIsSideBarOpen }) {
   );
 }
 
-export function HeaderProfileAndBuy() {
+export function HeaderProfileAndBuy({ children }) {
   return (
     <div className="header-logo-box center">
-      <AddCart />
+      {children}
       <img src="images/image-avatar.png" alt="Man Image" />
     </div>
   );
 }
 
-function AddCart() {
+export function AddCart({
+  numberOfProducts,
+  shoppingCartProducts,
+  setIsCartOpen,
+  numberOfSelectedProduct,
+}) {
+  function handleShowCart() {
+    setIsCartOpen((is) => !is);
+  }
+
   return (
-    <span className="add-cart">
-      <span className="product-number">1</span>
+    <span className="add-cart" onClick={handleShowCart}>
+      <span
+        className={`product-number ${shoppingCartProducts.length && "d-block"}`}
+      >
+        {numberOfSelectedProduct}
+      </span>
       <svg
         className="h-logo"
         viewBox="0 0 22 20"
