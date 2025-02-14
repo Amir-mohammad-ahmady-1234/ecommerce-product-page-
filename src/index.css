@@ -322,7 +322,7 @@ header {
 }
 .ovarlay-active {
   width: 100%;
-  height: 100vh;
+  height: 130vh;
   border-radius: 1px;
   opacity: 1;
   pointer-events: auto;
@@ -344,7 +344,7 @@ header {
 
 .slide {
   position: absolute;
-  top: 0;
+  top: 15%;
   width: 100%;
   height: 55rem;
 
@@ -362,10 +362,10 @@ header {
 }
 .slider-delete {
   position: absolute;
-  top: -8%;
+  top: 8%;
   border: none;
   background-color: transparent;
-  right: 0;
+  right: -2%;
 }
 #cross-icon-p {
   width: 2.8rem;
@@ -428,7 +428,7 @@ header {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 120vh;
   z-index: 101;
   background-color: rgba(0, 0, 0, 0.7);
 }

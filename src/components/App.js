@@ -17,6 +17,7 @@ import { ActiveSlide } from "./MainOvarlay";
 import { OvarlayOperationTabBox } from "./MainOvarlay";
 import { SliderImage } from "./MainOvarlay";
 import { SliderControler } from "./MainOvarlay";
+import { BoxesTabs2 } from "./MainOvarlay";
 
 import { OvarlayCart } from "./Header";
 import { HeaderContent } from "./Header";
@@ -55,7 +56,7 @@ export default function App() {
   const [numberOfSelectedProduct, setNumberOfSelectedProduct] = useState(1);
   const [shoppingCartProducts, setShoppingCartProducts] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const [ovarlayActive, setOvarlayActive] = useState(false);
   return (
     <>
       {/* Header start */}
@@ -93,6 +94,7 @@ export default function App() {
           <ShowBigCurrentBox
             initialProductImages={initialProductImages}
             selectedImage={selectedImage}
+            setOvarlayActive={setOvarlayActive}
           />
           <BoxesTabs
             initialProductImages={initialProductImages}
@@ -125,7 +127,7 @@ export default function App() {
       {/* end Main */}
 
       {/*  MainOvarlay start */}
-      <MainOvarlay isSideBarOpen={isSideBarOpen}>
+      <MainOvarlay isSideBarOpen={isSideBarOpen} ovarlayActive={ovarlayActive}>
         <ActiveSlide>
           <SliderImage
             selectedImage={selectedImage}
@@ -134,10 +136,18 @@ export default function App() {
           <SliderControler
             setSelectedImage={setSelectedImage}
             initialProductImages={initialProductImages}
+            setOvarlayActive={setOvarlayActive}
           />
         </ActiveSlide>
 
-        <OvarlayOperationTabBox />
+        <OvarlayOperationTabBox>
+          <BoxesTabs2
+            initialProductImages={initialProductImages}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            setIsCartOpen={setIsCartOpen}
+          />
+        </OvarlayOperationTabBox>
       </MainOvarlay>
       {/* end MainOvarlay */}
     </>

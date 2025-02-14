@@ -17,7 +17,7 @@ export function ProductsImages({ children }) {
 export function ShowBigCurrentBox({
   initialProductImages,
   selectedImage,
-  OvarlayOperationTabBox,
+  setOvarlayActive,
 }) {
   return (
     <div className="operation-content-box">
@@ -26,8 +26,8 @@ export function ShowBigCurrentBox({
           <BigPicture
             img={img}
             selectedImage={selectedImage}
-            OvarlayOperationTabBox={OvarlayOperationTabBox}
             key={img.id}
+            setOvarlayActive={setOvarlayActive}
           />
         );
       })}
@@ -35,7 +35,12 @@ export function ShowBigCurrentBox({
   );
 }
 
-function BigPicture({ img, selectedImage, OvarlayOperationTabBox }) {
+function BigPicture({ img, selectedImage, setOvarlayActive }) {
+
+  function handleOverLayStatus() {
+    setOvarlayActive(true)
+  }
+
   return (
     <img
       src={img.bigSrc}
@@ -44,6 +49,7 @@ function BigPicture({ img, selectedImage, OvarlayOperationTabBox }) {
       }`}
       alt="shoes"
       width="400"
+      onClick={handleOverLayStatus}
     />
   );
 }
@@ -52,11 +58,11 @@ export function BoxesTabs({
   initialProductImages,
   selectedImage,
   setSelectedImage,
-  setIsCartOpen
+  setIsCartOpen,
 }) {
   function handleChangeImage(id) {
     setSelectedImage(id);
-    setIsCartOpen(false)
+    setIsCartOpen(false);
   }
 
   return (

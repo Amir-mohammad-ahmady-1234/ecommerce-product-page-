@@ -1,7 +1,11 @@
-export default function MainOvarlay({ children, isSideBarOpen }) {
+export default function MainOvarlay({
+  children,
+  isSideBarOpen,
+  ovarlayActive,
+}) {
   return (
     <>
-      <div className="main-ovarlay center">
+      <div className={`main-ovarlay center ${ovarlayActive && 'ovarlay-active'}`}>
         <div className="ovarlay-hero-img-box">{children}</div>
       </div>
       <div className={`bg ${isSideBarOpen ? "bg-color" : ""}`}></div>
@@ -9,34 +13,47 @@ export default function MainOvarlay({ children, isSideBarOpen }) {
   );
 }
 
-export function OvarlayOperationTabBox() {
+export function OvarlayOperationTabBox({ children }) {
+  return <>{children}</>;
+}
+export function BoxesTabs2({
+  initialProductImages,
+  selectedImage,
+  setSelectedImage,
+  setIsCartOpen,
+}) {
+  function handleChangeImage(id) {
+    setSelectedImage(id);
+    setIsCartOpen(false);
+  }
+
   return (
     <div className="ovarlay-operation-tab-box center">
-      <img
-        src="images/image-product-1-thumbnail.jpg"
-        className="slider-dot"
-        data-tab="0"
-        alt="shoe"
-      />
-      <img
-        src="images/image-product-2-thumbnail.jpg"
-        className="slider-dot"
-        data-tab="1"
-        alt="shoe"
-      />
-      <img
-        src="images/image-product-3-thumbnail.jpg"
-        className="slider-dot"
-        data-tab="2"
-        alt="shoe"
-      />
-      <img
-        src="images/image-product-4-thumbnail.jpg"
-        className="slider-dot"
-        data-tab="3"
-        alt="shoe"
-      />
+      {initialProductImages.map((img) => {
+        return (
+          <SmallPicture
+            img={img}
+            selectedImage={selectedImage}
+            onClick={() => handleChangeImage(img.id)}
+            key={img.id}
+          />
+        );
+      })}
     </div>
+  );
+}
+
+function SmallPicture({ selectedImage, img, onClick }) {
+  return (
+    <img
+      src={img.smallSrc}
+      className={`slider-dot ${
+        selectedImage === img.id ? "slider-dot-active" : ""
+      }`}
+      data-tab={img.id}
+      alt="shoes"
+      onClick={onClick}
+    />
   );
 }
 
@@ -44,7 +61,7 @@ export function ActiveSlide({ children }) {
   return <div className="hero-slider">{children}</div>;
 }
 
-export function SliderControler({ setSelectedImage, initialProductImages }) {
+export function SliderControler({ setSelectedImage, initialProductImages, setOvarlayActive }) {
   function handlePreviousPicture() {
     setSelectedImage((selected) =>
       selected > 1 ? selected - 1 : initialProductImages.length
@@ -53,6 +70,10 @@ export function SliderControler({ setSelectedImage, initialProductImages }) {
 
   function handleNextPicture() {
     setSelectedImage((selected) => (selected < 4 ? selected + 1 : 1));
+  }
+
+  function handleCloseModaul () {
+    setOvarlayActive(false)
   }
 
   return (
@@ -98,7 +119,7 @@ export function SliderControler({ setSelectedImage, initialProductImages }) {
           />
         </svg>
       </button>
-      <button className="slider-delete">
+      <button className="slider-delete" onClick={handleCloseModaul}>
         <svg
           id="cross-icon-p"
           viewBox="0 0 14 15"
