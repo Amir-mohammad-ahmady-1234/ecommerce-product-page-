@@ -1,27 +1,24 @@
-export default function Main() {
+export default function Main({children}) {
   return (
     <main role="main">
       <section className="section-hero">
         <div className="hero container grid grid-2-cols">
-          <ProductsImages />
-
-          <ProductsTextes />
+          {children}
         </div>
       </section>
     </main>
   );
 }
 
-function ProductsImages() {
+export function ProductsImages({children}) {
   return (
     <div className="hero-img-box">
-      <ShowBigCurrentBox />
-      <BoxesTabs />
+      {children}
     </div>
   );
 }
 
-function ShowBigCurrentBox() {
+export function ShowBigCurrentBox() {
   return (
     <div className="operation-content-box">
       <img
@@ -52,7 +49,7 @@ function ShowBigCurrentBox() {
   );
 }
 
-function BoxesTabs() {
+export function BoxesTabs() {
   return (
     <div className="operation-tab-box center">
       <div className="border">
@@ -85,7 +82,7 @@ function BoxesTabs() {
   );
 }
 
-function ProductsTextes() {
+export function ProductsTextes({children}) {
   return (
     <div className="hero-text-box">
       <h3>Sneaker company</h3>
@@ -96,14 +93,12 @@ function ProductsTextes() {
         weather can offer.
       </p>
 
-      <ProductPriceWithOfer />
-
-      <ProductPriceSelectionWithAddToCart />
+      {children}
     </div>
   );
 }
 
-function ProductPriceWithOfer() {
+export function ProductPriceWithOfer() {
   return (
     <div className="price-section">
       <div className="price">
@@ -117,16 +112,15 @@ function ProductPriceWithOfer() {
   );
 }
 
-function ProductPriceSelectionWithAddToCart() {
+export function ProductPriceSelectionWithAddToCart({children}) {
   return (
     <div className="btn-list grid">
-      <ProNumSelection />
-      <AddToCartBtn />
+      {children}
     </div>
   );
 }
 
-function ProNumSelection() {
+export function ProNumSelection() {
   return (
     <div className="number-box">
       <button id="decrease">
@@ -140,7 +134,7 @@ function ProNumSelection() {
   );
 }
 
-function AddToCartBtn() {
+export function AddToCartBtn() {
   return (
     <button className="btn center">
       <span>
