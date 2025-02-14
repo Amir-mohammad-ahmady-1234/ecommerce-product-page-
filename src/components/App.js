@@ -51,6 +51,7 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(1);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const [numberOfProducts, setNumberOfProducts] = useState(1);
+  const [shoppingCartProducts, setShoppingCartProducts] = useState([])
 
   return (
     <>
@@ -88,7 +89,7 @@ export default function App() {
 
           <ProductPriceSelectionWithAddToCart>
             <ProNumSelection numberOfProducts={numberOfProducts} setNumberOfProducts={setNumberOfProducts} />
-            <AddToCartBtn />
+            <AddToCartBtn numberOfProducts={numberOfProducts} setNumberOfProducts={setNumberOfProducts} setShoppingCartProducts={setShoppingCartProducts} />
           </ProductPriceSelectionWithAddToCart>
         </ProductsTextes>
       </Main>

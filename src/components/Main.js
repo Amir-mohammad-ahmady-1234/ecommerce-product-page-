@@ -122,7 +122,6 @@ export function ProductPriceSelectionWithAddToCart({ children }) {
 }
 
 export function ProNumSelection({ numberOfProducts, setNumberOfProducts }) {
-  
   function handlePlusNum() {
     setNumberOfProducts((num) => num + 1);
   }
@@ -144,9 +143,30 @@ export function ProNumSelection({ numberOfProducts, setNumberOfProducts }) {
   );
 }
 
-export function AddToCartBtn() {
+export function AddToCartBtn({
+  numberOfProducts,
+  setNumberOfProducts,
+  setShoppingCartProducts,
+}) {
+  function handleAddToCart() {
+    const newProduct = {
+      id: crypto.randomUUID(),
+      src: "images/image-product-1-thumbnail.jpg",
+      name: "Fall Limited Edition Sneakers",
+      num: numberOfProducts,
+    };
+
+    setShoppingCartProducts((items) =>
+      items.length && items[items.length - 1].name === newProduct.name
+        ? items
+        : [...items, newProduct]
+    );
+
+    setNumberOfProducts(1);
+  }
+
   return (
-    <button className="btn center">
+    <button className="btn center" onClick={handleAddToCart}>
       <span>
         <svg
           className="h-logo"
