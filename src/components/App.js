@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Header from "./Header";
 import Main from "./Main";
 import MainOvarlay from "./MainOvarlay";
@@ -14,35 +16,36 @@ import { AddToCartBtn } from "./Main";
 const initialProductImages = [
   {
     id: 1,
-    smallSrc: "image-product-1-thumbnail.jpg",
-    bigSrc: "image-product-1.jpg",
+    smallSrc: "images/image-product-1-thumbnail.jpg",
+    bigSrc: "images/image-product-1.jpg",
   },
   {
     id: 2,
-    smallSrc: "image-product-2-thumbnail.jpg",
-    bigSrc: "image-product-2.jpg",
+    smallSrc: "images/image-product-2-thumbnail.jpg",
+    bigSrc: "images/image-product-2.jpg",
   },
   {
     id: 3,
-    smallSrc: "image-product-3-thumbnail.jpg",
-    bigSrc: "image-product-3.jpg",
+    smallSrc: "images/image-product-3-thumbnail.jpg",
+    bigSrc: "images/image-product-3.jpg",
   },
   {
     id: 4,
-    smallSrc: "image-product-4-thumbnail.jpg",
-    bigSrc: "image-product-4.jpg",
+    smallSrc: "images/image-product-4-thumbnail.jpg",
+    bigSrc: "images/image-product-4.jpg",
   },
 ];
 
 export default function App() {
+  const [selectedImage, setSelectedImage] = useState(1);
   return (
     <>
       <Header />
 
       <Main>
-        <ProductsImages>
-          <ShowBigCurrentBox />
-          <BoxesTabs />
+        <ProductsImages >
+          <ShowBigCurrentBox initialProductImages={initialProductImages} selectedImage={selectedImage} />
+          <BoxesTabs initialProductImages={initialProductImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
         </ProductsImages>
 
         <ProductsTextes>

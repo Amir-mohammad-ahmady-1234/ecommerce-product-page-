@@ -1,88 +1,80 @@
-export default function Main({children}) {
+export default function Main({ children }) {
   return (
     <main role="main">
       <section className="section-hero">
-        <div className="hero container grid grid-2-cols">
-          {children}
-        </div>
+        <div className="hero container grid grid-2-cols">{children}</div>
       </section>
     </main>
   );
 }
 
-export function ProductsImages({children}) {
-  return (
-    <div className="hero-img-box">
-      {children}
-    </div>
-  );
+export function ProductsImages({ children }) {
+  return <div className="hero-img-box">{children}</div>;
 }
 
-export function ShowBigCurrentBox() {
+export function ShowBigCurrentBox({ initialProductImages, selectedImage }) {
   return (
     <div className="operation-content-box">
-      <img
-        src="images/image-product-1.jpg"
-        className="product-image operation-content-1 active"
-        alt="shoes"
-        width="400"
-      />
-      <img
-        src="images/image-product-2.jpg"
-        className="product-image operation-content-2"
-        alt="shoes"
-        width="400"
-      />
-      <img
-        src="images/image-product-3.jpg"
-        className="product-image operation-content-3"
-        alt="shoes"
-        width="400"
-      />
-      <img
-        src="images/image-product-4.jpg"
-        className="product-image operation-content-4"
-        alt="shoes"
-        width="400"
-      />
+      {initialProductImages.map((img) => {
+        return <BigPicture img={img} selectedImage={selectedImage} />;
+      })}
     </div>
   );
 }
 
-export function BoxesTabs() {
+function BigPicture({ img, selectedImage }) {
+  return (
+    <img
+      src={img.bigSrc}
+      className={`product-image operation-content-4 ${
+        selectedImage === img.id ? "active" : ""
+      }`}
+      alt="shoes"
+      width="400"
+    />
+  );
+}
+
+export function BoxesTabs({
+  initialProductImages,
+  selectedImage,
+  setSelectedImage,
+}) {
+  function handleChangeImage(id) {
+    setSelectedImage(id);
+  }
+
   return (
     <div className="operation-tab-box center">
-      <div className="border">
-        <img
-          src="images/image-product-1-thumbnail.jpg"
-          className="product-image-small active-small"
-          data-tab="1"
-          alt="shoes"
-        />
-      </div>
-      <img
-        src="images/image-product-2-thumbnail.jpg"
-        className="product-image-small"
-        data-tab="2"
-        alt="shoes"
-      />
-      <img
-        src="images/image-product-3-thumbnail.jpg"
-        className="product-image-small"
-        data-tab="3"
-        alt="shoes"
-      />
-      <img
-        src="images/image-product-4-thumbnail.jpg"
-        className="product-image-small"
-        data-tab="4"
-        alt=""
-      />
+      {initialProductImages.map((img) => {
+        return (
+          <SmallPicture
+            img={img}
+            selectedImage={selectedImage}
+            onClick={() => handleChangeImage(img.id)}
+            key={img.id}
+          />
+        );
+      })}
     </div>
   );
 }
 
-export function ProductsTextes({children}) {
+function SmallPicture({ selectedImage, img, onClick }) {
+  return (
+    <img
+      src={img.smallSrc}
+      className={`product-image-small ${
+        selectedImage === img.id ? "active-small" : ""
+      }`}
+      data-tab={img.id}
+      alt="shoes"
+      onClick={onClick}
+    />
+  );
+}
+
+export function ProductsTextes({ children }) {
   return (
     <div className="hero-text-box">
       <h3>Sneaker company</h3>
@@ -112,12 +104,8 @@ export function ProductPriceWithOfer() {
   );
 }
 
-export function ProductPriceSelectionWithAddToCart({children}) {
-  return (
-    <div className="btn-list grid">
-      {children}
-    </div>
-  );
+export function ProductPriceSelectionWithAddToCart({ children }) {
+  return <div className="btn-list grid">{children}</div>;
 }
 
 export function ProNumSelection() {
