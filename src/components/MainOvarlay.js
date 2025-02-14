@@ -1,49 +1,68 @@
-export default function MainOvarlay() {
+export default function MainOvarlay({ children }) {
   return (
     <>
       <div className="main-ovarlay center">
-        <div className="ovarlay-hero-img-box">
-          <ActiveSlide />
-
-          <div className="ovarlay-operation-tab-box center">
-            <img
-              src="images/image-product-1-thumbnail.jpg"
-              className="slider-dot"
-              data-tab="0"
-              alt="shoe"
-            />
-            <img
-              src="images/image-product-2-thumbnail.jpg"
-              className="slider-dot"
-              data-tab="1"
-              alt="shoe"
-            />
-            <img
-              src="images/image-product-3-thumbnail.jpg"
-              className="slider-dot"
-              data-tab="2"
-              alt="shoe"
-            />
-            <img
-              src="images/image-product-4-thumbnail.jpg"
-              className="slider-dot"
-              data-tab="3"
-              alt="shoe"
-            />
-          </div>
-        </div>
+        <div className="ovarlay-hero-img-box">{children}</div>
       </div>
       <div className="bg"></div>
     </>
   );
 }
 
-function ActiveSlide() {
+export function OvarlayOperationTabBox() {
   return (
-    <div className="hero-slider">
-      <SliderImage />
+    <div className="ovarlay-operation-tab-box center">
+      <img
+        src="images/image-product-1-thumbnail.jpg"
+        className="slider-dot"
+        data-tab="0"
+        alt="shoe"
+      />
+      <img
+        src="images/image-product-2-thumbnail.jpg"
+        className="slider-dot"
+        data-tab="1"
+        alt="shoe"
+      />
+      <img
+        src="images/image-product-3-thumbnail.jpg"
+        className="slider-dot"
+        data-tab="2"
+        alt="shoe"
+      />
+      <img
+        src="images/image-product-4-thumbnail.jpg"
+        className="slider-dot"
+        data-tab="3"
+        alt="shoe"
+      />
+    </div>
+  );
+}
 
-      <button className="slider__btn slider__btn--left" aria-label="left align">
+export function ActiveSlide({ children }) {
+  return <div className="hero-slider">{children}</div>;
+}
+
+export function SliderControler({ setSelectedImage, initialProductImages }) {
+  function handlePreviousPicture() {
+    setSelectedImage((selected) =>
+      selected > 1 ? selected - 1 : initialProductImages.length
+    );
+  }
+
+  function handleNextPicture() {
+    setSelectedImage((selected) => (selected < 4 ? selected + 1 : 1));
+  }
+
+  return (
+    <>
+      {" "}
+      <button
+        className="slider__btn slider__btn--left"
+        aria-label="left align"
+        onClick={handlePreviousPicture}
+      >
         <svg
           className="btn-right"
           viewBox="0 0 12 18"
@@ -62,6 +81,7 @@ function ActiveSlide() {
       <button
         className="slider__btn slider__btn--right"
         aria-label="right align"
+        onClick={handleNextPicture}
       >
         <svg
           className="btn-right"
@@ -92,25 +112,28 @@ function ActiveSlide() {
           />
         </svg>
       </button>
+    </>
+  );
+}
+
+export function SliderImage({ selectedImage, initialProductImages }) {
+  return (
+    <div className="slider">
+      {initialProductImages.map((img) => {
+        return (
+          <MainSlidImage img={img} selectedImage={selectedImage} key={img.id} />
+        );
+      })}
     </div>
   );
 }
 
-function SliderImage() {
-  return (
-    <div className="slider">
+function MainSlidImage({ img, selectedImage }) {
+  if (img.id === selectedImage) {
+    return (
       <div className="slide">
-        <img src="images/image-product-1.jpg" alt="Photo 1" />
+        <img src={img.bigSrc} alt={`Photo ${img.id}`} />
       </div>
-      <div className="slide">
-        <img src="images/image-product-2.jpg" alt="Photo 2" />
-      </div>
-      <div className="slide">
-        <img src="images/image-product-3.jpg" alt="Photo 3" />
-      </div>
-      <div className="slide">
-        <img src="images/image-product-4.jpg" alt="Photo 4" />
-      </div>
-    </div>
-  );
+    );
+  }
 }

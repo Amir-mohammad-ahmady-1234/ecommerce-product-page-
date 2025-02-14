@@ -13,6 +13,11 @@ import { ProductPriceSelectionWithAddToCart } from "./Main";
 import { ProNumSelection } from "./Main";
 import { AddToCartBtn } from "./Main";
 
+import { ActiveSlide } from "./MainOvarlay";
+import { OvarlayOperationTabBox } from "./MainOvarlay";
+import { SliderImage } from "./MainOvarlay";
+import { SliderControler } from "./MainOvarlay";
+
 const initialProductImages = [
   {
     id: 1,
@@ -42,10 +47,18 @@ export default function App() {
     <>
       <Header />
 
+      {/* Main */}
       <Main>
-        <ProductsImages >
-          <ShowBigCurrentBox initialProductImages={initialProductImages} selectedImage={selectedImage} />
-          <BoxesTabs initialProductImages={initialProductImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+        <ProductsImages>
+          <ShowBigCurrentBox
+            initialProductImages={initialProductImages}
+            selectedImage={selectedImage}
+          />
+          <BoxesTabs
+            initialProductImages={initialProductImages}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+          />
         </ProductsImages>
 
         <ProductsTextes>
@@ -57,8 +70,24 @@ export default function App() {
           </ProductPriceSelectionWithAddToCart>
         </ProductsTextes>
       </Main>
+      {/* end Main */}
 
-      <MainOvarlay />
+      {/*  MainOvarlay  */}
+      <MainOvarlay>
+        <ActiveSlide>
+          <SliderImage
+            selectedImage={selectedImage}
+            initialProductImages={initialProductImages}
+          />
+          <SliderControler
+            setSelectedImage={setSelectedImage}
+            initialProductImages={initialProductImages}
+          />
+        </ActiveSlide>
+
+        <OvarlayOperationTabBox />
+      </MainOvarlay>
+      {/* end MainOvarlay */}
     </>
   );
 }

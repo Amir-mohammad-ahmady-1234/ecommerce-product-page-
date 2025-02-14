@@ -12,17 +12,28 @@ export function ProductsImages({ children }) {
   return <div className="hero-img-box">{children}</div>;
 }
 
-export function ShowBigCurrentBox({ initialProductImages, selectedImage }) {
+export function ShowBigCurrentBox({
+  initialProductImages,
+  selectedImage,
+  OvarlayOperationTabBox,
+}) {
   return (
     <div className="operation-content-box">
       {initialProductImages.map((img) => {
-        return <BigPicture img={img} selectedImage={selectedImage} />;
+        return (
+          <BigPicture
+            img={img}
+            selectedImage={selectedImage}
+            OvarlayOperationTabBox={OvarlayOperationTabBox}
+            key={img.id}
+          />
+        );
       })}
     </div>
   );
 }
 
-function BigPicture({ img, selectedImage }) {
+function BigPicture({ img, selectedImage, OvarlayOperationTabBox }) {
   return (
     <img
       src={img.bigSrc}
