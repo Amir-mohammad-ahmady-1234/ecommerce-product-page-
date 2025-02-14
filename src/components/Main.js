@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function Main({ children }) {
   return (
     <main role="main">
@@ -119,14 +121,23 @@ export function ProductPriceSelectionWithAddToCart({ children }) {
   return <div className="btn-list grid">{children}</div>;
 }
 
-export function ProNumSelection() {
+export function ProNumSelection({ numberOfProducts, setNumberOfProducts }) {
+  
+  function handlePlusNum() {
+    setNumberOfProducts((num) => num + 1);
+  }
+
+  function handleMinus() {
+    setNumberOfProducts((num) => (numberOfProducts > 1 ? num - 1 : num));
+  }
+
   return (
     <div className="number-box">
-      <button id="decrease">
+      <button id="decrease" onClick={handleMinus}>
         <img src="images/icon-minus.svg" alt="icon-minus" />
       </button>
-      <span id="quanity">0</span>
-      <button id="increase">
+      <span id="quanity">{numberOfProducts}</span>
+      <button id="increase" onClick={handlePlusNum}>
         <img src="images/icon-plus.svg" alt="icon-plus" />
       </button>
     </div>

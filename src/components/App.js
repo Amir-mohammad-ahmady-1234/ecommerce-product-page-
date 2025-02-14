@@ -50,6 +50,7 @@ const initialProductImages = [
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(1);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
+  const [numberOfProducts, setNumberOfProducts] = useState(1);
 
   return (
     <>
@@ -86,7 +87,7 @@ export default function App() {
           <ProductPriceWithOfer />
 
           <ProductPriceSelectionWithAddToCart>
-            <ProNumSelection />
+            <ProNumSelection numberOfProducts={numberOfProducts} setNumberOfProducts={setNumberOfProducts} />
             <AddToCartBtn />
           </ProductPriceSelectionWithAddToCart>
         </ProductsTextes>
