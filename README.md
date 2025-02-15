@@ -2,6 +2,17 @@
 
 ![Design preview for the E-commerce product page coding challenge](desktop-preview.jpg)
 
+# My explanation:
+
+## I got the idea for this project from the Frontend Mentor site. And I developed that project using React.
+
+# [demo](https://ecommerce-product-page-muho.vercel.app/)
+
+
+### Below is the description from the Frontend Mentor site about this project:
+
+
+
 ## Welcome! 👋
 
 Thanks for checking out this front-end coding challenge.
